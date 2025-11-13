@@ -1,46 +1,48 @@
 @echo off
-echo ==========================================
-echo   Flappy Bird - Environment Setup Script
-echo ==========================================
+REM ===========================================================
+REM Flappy Bird AI - Windows Environment Setup Script
+REM Author: Shivanshu Shukla
+REM ===========================================================
+
+echo Setting up Flappy Bird environment...
 echo.
 
-REM Step 1: Ensure Python is available
+REM --- Check for Python installation ---
 python --version >nul 2>&1
-IF ERRORLEVEL 1 (
-    echo [ERROR] Python not found. Please install Python 3.9+ first.
+IF %ERRORLEVEL% NEQ 0 (
+    echo Python is not installed or not added to PATH.
+    echo Please install Python 3.10+ and rerun this script.
     pause
-    exit /b 1
+    exit /b
 )
 
-REM Step 2: Create a virtual environment
+REM --- Create virtual environment ---
 echo Creating virtual environment...
 python -m venv venv
-IF ERRORLEVEL 1 (
-    echo [ERROR] Failed to create virtual environment.
-    pause
-    exit /b 1
-)
 
-REM Step 3: Activate it
+REM --- Activate environment ---
+echo Activating virtual environment...
 call venv\Scripts\activate
 
-REM Step 4: Upgrade pip
+REM --- Upgrade pip ---
+echo Upgrading pip...
 python -m pip install --upgrade pip
 
-REM Step 5: Install required packages
-echo Installing dependencies...
-pip install pygame neat-python mysql-connector-python python-dotenv
+REM --- Install required packages ---
+echo Installing required dependencies...
+pip install mysql-connector-python==9.5.0
+pip install neat-python==0.92
+pip install pygame==2.6.1
+pip install python-dotenv==1.2.1
 
-REM Step 6: Verify installation
+REM --- Done ---
 echo.
-echo Checking installed packages...
-pip list
-
-REM Step 7: Start the game
+echo ===========================================================
+echo ✅ Setup complete!
+echo To start the game, run:
 echo.
-echo Launching Flappy Bird game...
-python game.py
-
+echo     venv\Scripts\activate
+echo     python game.py
 echo.
-echo Done! Press any key to exit.
+echo ===========================================================
 pause
